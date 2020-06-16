@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>welcome.jsp</title>
+</head>
+<body>
+<%
+Cookie[] cookies = request.getCookies();
+for(Cookie cookie : cookies){
+	String id = cookie.getName();
+	if(id.equals("abcd")){%>
+<a href="update.jsp"><%=id%></a>님 환영합니다.
+<%	}
+}
+%>
+
+
+</body>
+</html>

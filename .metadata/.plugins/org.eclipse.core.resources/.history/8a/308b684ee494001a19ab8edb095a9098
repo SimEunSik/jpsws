@@ -1,0 +1,35 @@
+package com.bigdata.command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bigdata.dao.BoardDao;
+import com.bigdata.dto.BoardDto;
+
+public class BWriteCommand implements BCommand{
+	
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		
+		String sIdx = request.getParameter("idx");
+		int idx = Integer.parseInt(sIdx);
+		String name = request.getParameter("bname");
+		String email = request.getParameter("bemail");
+		String homepage = request.getParameter("bhomepage");
+		String title = request.getParameter("btitle");
+		String content = request.getParameter("bcontent");
+		String pw = request.getParameter("bpw");
+
+		// dao
+		BoardDao dao = BoardDao.getInstance();
+		// dto
+		BoardDto board = null;
+		
+		// insert
+		int ri = dao.setBoardWrite(board);
+		
+		
+		request.setAttribute("ri", ri);
+		request.setAttribute("idx", idx);
+	}
+}

@@ -1,0 +1,29 @@
+package com.bigdata.command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bigdata.dao.BoardDao;
+
+public class BListCommand implements BCommand{
+	
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		int pageSize = 10;
+		String pageNum = request.getParameter("pagenum");
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage -1) * pageSize;
+		int endRow = pageSize;
+		
+		// dao
+		BoardDao dao = BoardDao.getInstance();
+		
+		ArrayList<BoardDto> dtos = dao.getBoardAll(pageNum, pageList);
+		
+	}
+}

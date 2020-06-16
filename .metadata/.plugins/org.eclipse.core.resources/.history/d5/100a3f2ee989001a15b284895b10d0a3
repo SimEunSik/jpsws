@@ -1,0 +1,52 @@
+<%@page import="com.bigdata.dto.MemberInfoDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.bigdata.dao.MemberInfoDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<table class="table table-striped">
+	<tr>
+		<td>num</td>
+		<td>id</td>
+		<td>pw</td>
+		<td>name</td>
+		<td>nicname</td>
+		<td>email</td>
+		<td>regdate</td>
+	</tr>
+	<%// db에서 전체 member정보 가져오기
+      	// ArrayList<MemberInfoDto>
+      	MemberInfoDao dao = MemberInfoDao.getInstance();
+      ArrayList<MemberInfoDto> memberList = dao.getMemberList();
+      //  
+      %>
+      
+	<%
+	int i= 1;
+	for(MemberInfoDto member : memberList) {
+	%>
+	<tr>
+		<td><%=i %></td>
+		<td><%=member.getId() %></td>
+		<td><%=member.getPw() %></td>
+		<td><%=member.getName() %></td>
+		<td><%=member.getNicname() %></td>
+		<td><%=member.getEmail() %></td>
+		<td><%=member.getRegdate() %></td>
+	</tr>
+	<%
+	i++;
+	} %>
+</table>
+<a href="<%=board_path%>write.jsp"><input type="button" id="wbtn"
+	class="btn btn-success" value="글쓰기"></a>
+
+<div class="text-center">
+	<ul class="pagination justify-content-center">
+		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		<%for(int j=1;j<10;j++) { %>
+		<li class="page-item"><a class="page-link" href="#"><%=j%></a></li>
+		<%} %>
+		<li class="page-item"><a class="page-link" href="#">Next</a></li>
+	</ul>
+</div>

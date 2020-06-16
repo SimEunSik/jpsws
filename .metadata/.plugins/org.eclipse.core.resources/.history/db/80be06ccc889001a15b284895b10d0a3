@@ -1,0 +1,44 @@
+<%@page import="com.javalex.ex.MemberInfoDao"%>
+<%@page import="com.javalex.ex.MemberInfoDto"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+request.setCharacterEncoding("UTF-8");
+
+// 값 받아야지
+String id = (String)session.getAttribute("id");
+String pw = (String)session.getAttribute("pw");
+String name = (String)session.getAttribute("name");
+String email = (String)session.getAttribute("email");
+String address = (String)session.getAttribute("address");
+MemberInfoDto dto = new MemberInfoDto(id, pw, name, email, address);
+
+// DB에 일 시켜야지(dao)
+
+MemberInfoDao dao = MemberInfoDao.getInstance();
+int ri = dao.memberInfoModify();
+if(ri == 1) {
+%>
+<script>
+alert('아이디가 이미 존재합니다.');
+history.back();
+</script>
+<%} else {
+	ri = dao.memberInfoInsert(dto);
+	if(ri == 1) {%>
+<script>
+alert('회원가입 성공.');
+location.href="login.jsp";
+</script>
+<%
+	} else {
+%>
+<script>
+alert('회원가입 실패 - 잠시 후 다시 시도해주세요');
+history.back();
+</script>
+<%	
+	}
+}
+%>

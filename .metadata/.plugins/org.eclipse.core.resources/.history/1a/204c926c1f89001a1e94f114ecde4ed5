@@ -1,0 +1,91 @@
+<%@page import="com.javalex.ex.MemberInfoDao"%>
+<%@page import="com.javalex.ex.MemberInfoDto"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
+<jsp:useBean id="dto" class="com.javalex.ex.MemberInfoDto" />
+<jsp:setProperty property="*" name="dto"/>
+
+<% 
+MemberInfoDto dao = MemberInfoDao.getInstance();
+int ri = dao.confirmId(dto.getId());
+if(ri == 1) {
+%>
+<script>
+alert('아이디가 이미 존재합니다.');
+history.back();
+</script>
+<%} else {
+	ri = dao.memberInfoInsert(dto);
+	if(ri == 1) {%>
+<script>
+alert('회원가입 성공.');
+location.href="login.jsp";
+</script>
+<%
+	} else {
+%>
+<script>
+alert('회원가입 실패 - 잠시 후 다시 시도해주세요');
+history.back();
+</script>
+<%	
+	}
+}
+%>
+
+
+
+Connection conn = null;
+Statement stmt = null;
+PreparedStatement pstmt = null;
+
+request.setCharacterEncoding("UTF-8");
+
+String id = request.getParameter("id");
+String pw = request.getParameter("pw");
+String name = request.getParameter("name");
+String email = request.getParameter("email");
+String address = request.getParameter("address");
+
+if(id == null) response.sendRedirect("join.jsp");
+
+String driver = "com.mysql.jdbc.Driver";
+String url = "jdbc:mysql://localhost:3306/bigdata?useSSL=false&serverTimezone=UTC";
+String uid = "root";
+String upw = "rootpass";
+String sql = "insert into member (id, pw, name, email, address)";
+sql += "values('"+id+"','"+pw+"','"+name+"','"+email+"','"+address+"')";
+
+String psql = "insert into member (id, pw, name, email, address)";
+psql += "values(?,?,?,?,?)";
+
+try{
+	Class.forName(driver);
+	conn = DriverManager.getConnection(url, uid, upw);
+	stmt = conn.createStatement();
+	pstmt = conn.prepareStatement(psql);
+	pstmt.setString(1, id);
+	pstmt.setString(2, pw);
+	pstmt.setString(3, name);
+	pstmt.setString(4, email);
+	pstmt.setString(5, address);
+	int n = pstmt.executeUpdate();
+	
+	response.sendRedirect("memberData.jsp");
+	
+}catch(Exception e){
+	out.println(e.getMessage());
+}finally{
+	if(pstmt != null) stmt.close();
+	if(conn != null) conn.close();
+}
+
+%>

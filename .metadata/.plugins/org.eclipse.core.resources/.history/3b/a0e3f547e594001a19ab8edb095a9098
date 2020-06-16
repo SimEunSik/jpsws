@@ -1,0 +1,17 @@
+package com.bigdata.command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bigdata.dao.BoardDao;
+import com.bigdata.dto.BoardDto;
+
+public class BReplyInfoCommand implements BCommand{
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		request.setAttribute("board", board);
+		request.setAttribute("idx", idx);
+	}
+}

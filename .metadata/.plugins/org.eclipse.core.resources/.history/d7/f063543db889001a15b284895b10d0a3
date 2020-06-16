@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<br>
+<h3>
+	<p class="text-info">글 수정하기</p>
+</h3>
+<table class="table">
+	<tr>
+		<td>작성자</td>
+		<td><input type="text" class="uname" name="username"></td>
+	</tr>
+	<tr>
+		<td>E-Mail</td>
+		<td><input type="text" class="umail" name="email"></td>
+	</tr>
+	<tr>
+		<td>홈페이지</td>
+		<td><input type="text" class="upage" name="homepage"></td>
+	</tr>
+	<tr>
+		<td>제 목</td>
+		<td><input type="text" class="title" name="title"></td>
+	</tr>
+	<tr>
+		<td>내 용</td>
+		<td><textarea name="message" class="content" rows="8" cols="30"></textarea></td>
+	</tr>
+	<tr>
+		<td>비밀번호</td>
+		<td><input type="password" class="upw" name="password"></td>
+	</tr>
+</table>
+<div class="updatebtnbox">
+	<button type="button" onClick=check() class="btn btn-success">수정 완료</button>
+	<button type="button" onClick=updatef() class="btn btn-warning">다시
+		수정</button>
+	<button type="button" onClick="history.go(-1)" class="btn btn-danger">뒤
+		로</button>
+</div>

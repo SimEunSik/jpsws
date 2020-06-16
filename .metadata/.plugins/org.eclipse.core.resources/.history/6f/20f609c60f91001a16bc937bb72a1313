@@ -1,0 +1,80 @@
+const uname = document.querySelector('.uname');
+const title = document.querySelector('.title');
+const con = document.querySelector('.content');
+const upw = document.querySelector('.upw');
+const lbtn = document.querySelector('.btn');
+const del = document.querySelector('.delpw');
+
+function check() {
+    if(uname.value.length === 0){
+        alert('작성자는 필수 입력 입니다.')
+        input.focus();
+    } else if(title.value.length === 0){
+        alert('제목은 필수 입력 입니다.')
+        input.focus();
+    } else if (con.value.length === 0) {
+        alert('내용은 필수 입력 입니다.')
+        input.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        input.focus();
+    } else {
+    	alert('수정되었습니다.')
+        location.href="/bigdata/board/list.jsp"
+    }
+};
+
+function writef() {
+    if(uname.value.length === 0){
+        alert('작성자는 필수 입력 입니다.')
+        input.focus();
+    } else if(title.value.length === 0){
+        alert('제목은 필수 입력 입니다.')
+        input.focus();
+    } else if (con.value.length === 0) {
+        alert('내용은 필수 입력 입니다.')
+        input.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        input.focus();
+    } else {
+        location.href="/bigdata/board/writeOK.jsp"
+    }
+};
+
+function replyf() {
+    if(uname.value.length === 0){
+        alert('작성자는 필수 입력 입니다.')
+        input.focus();
+    } else if(title.value.length === 0){
+        alert('제목은 필수 입력 입니다.')
+        input.focus();
+    } else if (con.value.length === 0) {
+        alert('내용은 필수 입력 입니다.')
+        input.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        input.focus();
+    } else {
+        //location.href="/bigdata/board/replyOK.jsp"
+    	reply.submit();
+    }
+};
+function deletef() {
+    if(del.value.length === 0){
+        alert('비밀번호는 필수 입력 입니다.')
+        input.focus();
+    } else {
+        //location.href="/bigdata/board/deleteOK.jsp"
+    	del.submit();
+    }
+};
+
+function updatef() {
+    document.querySelector('.uname').value = "";
+    document.querySelector('.umail').value = "";
+    document.querySelector('.upage').value = "";
+    document.querySelector('.title').value = "";
+    document.querySelector('.content').value = "";
+    document.querySelector('.upw').value = "";
+};

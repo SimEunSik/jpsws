@@ -1,0 +1,47 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+String id = request.getParameter("id");
+String pw = request.getParameter("pw");
+Connection conn = null;
+PreparedStatement stmt = null;
+ResultSet rs = null;
+String driver = "com.mysql.jdbc.Driver";
+String url = "jdbc:mysql://localhost:3306/bigdata?useSSL=false&serverTimezone=UTC";
+String uid = "root";
+String upw = "rootpass";
+String sql = "select id, pw from member where id=? and pw=?";
+
+try{
+	Class.forName(driver);
+	conn = DriverManager.getConnection(url, uid, upw);
+	stmt = conn.createStatement();
+	rs = stmt.executeQuery(sql);
+	while(rs.next()){
+		String id = rs.getString("id");
+		String pw = rs.getString("pw");
+		String name = rs.getString("name");
+		String email = rs.getString("email");
+		String address = rs.getString("address");
+		String regdate = rs.getString("regdate");
+	}
+}catch(Exception e){
+	out.println("ERR");
+}finally{
+	if(rs != null) rs.close();
+	if(stmt != null) stmt.close();
+	if(conn != null) conn.close();
+}
+
+if(id.equals("abcd") && pw.equals("1234")){
+	session.setAttribute("userId", id);
+	response.sendRedirect("welcome.jsp");
+} else {
+	response.sendRedirect("login.jsp");
+}
+%>

@@ -1,0 +1,9 @@
+<%!
+String app_path = "/bigdata";
+String css_path = app_path + "/css/";
+String js_path = app_path + "/js/";
+String join_path = app_path + "/join/";
+String login_path = app_path + "/login/";
+String board_path = app_path + "/board/";
+String page_name = "";
+%>

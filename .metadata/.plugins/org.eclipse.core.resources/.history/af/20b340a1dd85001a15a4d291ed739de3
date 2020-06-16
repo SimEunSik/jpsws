@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cal_form</title>
+</head>
+<body>
+<h1>4칙연산 계산기<br>
+<form action="calOK.jsp">
+<input type="text" name="num1">
+<select name="cal">
+	<option>+</option>
+	<option>-</option>
+	<option>*</option>
+	<option>/</option>
+</select>
+<input type="text" name="num2">
+<input type="submit" name="계산" value="계산">
+
+
+</form>
+
+</h1>
+
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>join.jsp</title>
+<script>
+function infoConfirm() {
+	var form = document.reg_frm;
+	if(form.id.value.length === 0){
+		alert('id를 입력해 주세요');
+		form.id.focus();
+		return;
+	}
+	if(form.pw.value.length === 0){
+		alert('pw를 입력해 주세요');
+		form.pw.focus();
+		return;
+	}
+	if(form.repw.value.length === 0){
+		alert('re-pw를 확인해 주세요');
+		form.repw.focus();
+		return;
+	}
+	if(form.pw.value !== form.repw.value){
+		alert('pw와 re-pw는 같아야 합니다');
+		form.repw.focus();
+		return;
+	}
+	if(form.name.value.length === 0){
+		alert('name을 확인해 주세요');
+		form.name.focus();
+		return;
+	}
+	if(form.email.value.length === 0){
+		alert('email을 확인해 주세요');
+		form.email.focus();
+		return;
+	}
+	if(form.address.value.length === 0){
+		alert('address를 확인해 주세요');
+		form.address.focus();
+		return;
+	}
+	form.submit();
+}
+</script>
+</head>
+<body>
+<h1>회월가입<hr>
+<form action="joinOK.jsp" method="post" name="reg_frm">
+	ID: <input type="text" name="id" size="20"><br>
+	PW: <input type="password" name="pw" size="20"><br>
+	Re-PW: <input type="password" name="repw" size="20"><br>
+	Name: <input type="text" name="name" size="20"><br>
+	E-mail: <input type="text" name="email" size="20"><br>
+	Address: <input type="text" name="address" size="50"><br>
+	<input type="button" value="회원가입" onclick="infoConfirm()"><br>
+	<input type="reset" value="Reset">
+</form>
+</h1>
+</body>
+</html>

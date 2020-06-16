@@ -1,0 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<h3>  	
+<p class="text-info">회 원 탈 퇴</p>
+</h3>
+<form action="deleteOK.jsp" method="post">
+	PW : <input type="password" name="pw">
+	<input type="submit" value="전송">
+</form>

@@ -1,0 +1,31 @@
+package com.bigdata.command;
+
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bigdata.dao.BoardDao;
+import com.bigdata.dto.BoardDto;
+
+public class BWriteCommand implements BCommand{
+	
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		// 글 하나 생성
+		BoardDto board = new BoardDto(name, email, homepage, title, content, pw);
+
+		// dao
+		BoardDao dao = BoardDao.getInstance();
+
+		// insert
+		int ri = dao.setBoardWrite(board);
+		
+		// request
+		request.setAttribute("boards", boards);
+		request.setAttribute("count", count);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("pageNum", pageNum);
+		
+	}
+}

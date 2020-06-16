@@ -1,0 +1,253 @@
+package com.bigdata.dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import com.bigdata.dao.MemberInfoDao;
+import com.bigdata.dto.MemberInfoDto;
+import com.javalec.ex.JDBCUtil;
+
+public class MemberInfoDao {
+	
+	private static MemberInfoDao instance = new MemberInfoDao();
+	private static String memberInfoSelect = "select * from members order by regdate desc";
+	private static String confirmId = "select count(id) as cnt from members where id = ?";
+	private static String memberInfoInsert = "insert into members (id,pw,name,nicname,email) values(?,?,?,?,?)";
+	private static String userCheck = "select pw from members where id = ?";
+	private static String getMemberInfo = "select * from members where id = ?";
+	private static String memberInfoModify = "update members set pw=?, name=?, nicname=?, email=? where id=?";
+	private static String memberInfoDelete = "delete from members where id=?";
+	
+	// dbcp 사용
+	private  MemberInfoDao() {
+	}
+	
+	// dao 연결
+	public static MemberInfoDao getInstance() {
+		return instance;
+	}
+	
+	// DB연결
+	private Connection getConnection() {
+		Connection conn = null;
+		conn = JDBCUtil.getConnection();
+		return conn;
+	}
+
+	// 회원 정보 전체보기
+	public ArrayList<MemberInfoDto> memberInfoSelect() {
+		ArrayList<MemberInfoDto> dtos = new ArrayList<MemberInfoDto>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1.conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(memberInfoSelect);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String name = rs.getString("name");
+				String nicname = rs.getString("nicname");
+				String email = rs.getString("email");
+				String regdate = rs.getString("regdate");
+				
+				MemberInfoDto member = new MemberInfoDto(id, pw, name, nicname, email, regdate);
+				dtos.add(member);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		} 
+		return dtos;
+	}
+	
+	// 회원 가입
+	public int memberInfoInsert(MemberInfoDto dto) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 1.conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(memberInfoInsert);
+			pstmt.setString(1, dto.getId());
+			pstmt.setString(2, dto.getPw());
+			pstmt.setString(3, dto.getName());
+			pstmt.setString(4, dto.getNicname());
+			pstmt.setString(5, dto.getEmail());
+			ri = pstmt.executeUpdate(); 
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt, conn);
+		} 
+		return ri;
+	}
+	
+	// 회원 아이디 체크
+	public int confirmId(String id) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1.conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(confirmId);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ri = rs.getInt("cnt");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		} 
+		return ri;
+	}
+	
+	// 회원 체크
+	public int userCheck(String id, String pw) {
+		int ri = -1; // 로그인 성공 1 / 패스워드 X 0 
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1.conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(userCheck);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String dbPw = rs.getString("pw");
+				if(pw.equals(dbPw)) {
+					ri = 1;// 성공
+				}else {
+					ri = 0;// 패스워드 실패
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		} 
+		return ri;
+	}
+	
+	// 회원 정보 받기
+	public MemberInfoDto getMemberInfo(String id) {
+		MemberInfoDto dto = null;
+		
+		// 0. 워크벤치 오픈
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1. 연결
+			conn = getConnection();
+			// 2. query창
+			pstmt = conn.prepareStatement(getMemberInfo);
+			// 3. 셋팅
+			pstmt.setString(1, id);
+			// 4. 실행버튼
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				// 변수명 = DB 컬럼명
+				String pw = rs.getString("pw");
+				String name = rs.getString("name");
+				String nicname = rs.getString("nicname");
+				String email = rs.getString("email");
+				String regdate = rs.getString("regdate");
+				dto = new MemberInfoDto(id, pw, name, nicname, email, regdate);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		} 
+		return dto;
+	}
+	
+	// 회원 정보 수정
+	public int memberInfoModify(MemberInfoDto dto) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 1.conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(memberInfoModify);
+			pstmt.setString(5, dto.getId());
+			pstmt.setString(1, dto.getPw());
+			pstmt.setString(2, dto.getName());
+			pstmt.setString(3, dto.getNicname());
+			pstmt.setString(4, dto.getEmail());
+			
+			ri = pstmt.executeUpdate(); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt, conn);
+		} 
+		return ri;
+	}
+	
+	// 회원 정보 삭제
+	public int memberInfoDelete(String id) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 1.conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(memberInfoDelete);
+			pstmt.setString(1, id);
+			ri = pstmt.executeUpdate(); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt, conn);
+		} 
+		return ri;
+	}
+	
+}

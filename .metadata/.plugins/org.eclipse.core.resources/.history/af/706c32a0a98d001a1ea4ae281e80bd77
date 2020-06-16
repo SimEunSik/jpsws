@@ -1,0 +1,60 @@
+<%@page import="com.bigdata.dto.MemberInfoDto"%>
+<%@page import="com.bigdata.dao.MemberInfoDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+if(session.getAttribute("userId") == null) { // 비로그인%>
+<jsp:forward page="/login/login.jsp"/>
+<%} %>
+<%@ include file="/layout/common.jsp"%>
+<%page_name="modify";%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%=page_name%>.jsp</title>
+<link rel="stylesheet" href="<%=css_path%>modify.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+<%
+	// 그 id의 사용자 정보를  /db에서 가져오기 getMemberInfo()
+	MemberInfoDao dao = MemberInfoDao.getInstance();
+	MemberInfoDto dto = dao.getMemberInfo(id);
+%>
+<div id="wrap">
+		<header>
+			<%@ include file="/layout/header.jsp"%>
+		</header>
+
+		<div id="modify">
+			<%@ include file="/board/update_content.jsp"%>
+		</div>
+
+		<footer>
+			<%@ include file="/layout/footer.jsp"%>
+		</footer>
+	</div>
+	<script src="<%=js_path%>board.js"></script>
+
+<h1>회원정보수정<hr>
+<form action="modifyOK.jsp" method="post" name="reg_frm">
+	아이디 : <%=id%><br>
+	비밀번호 : <input value="<%=dto.getPw()%>" type="password" name="pw" size="20"><br>
+	이름 : <input value="<%=dto.getName()%>" type="text" name="name" size="20"><br>
+	닉네임 : <input value="<%=dto.getNicname()%>" type="text" name="nicname" size="20"><br>
+	메일 : <input value="<%=dto.getEmail()%>" type="text" name="email" size="50"><br>
+	<input type="submit" value="정보수정"><br>
+	<input type="reset" value="Reset" onClick="javascript:window.location='/bigdata/login/login.jsp'">
+</form>
+</h1>
+</body>
+</html>

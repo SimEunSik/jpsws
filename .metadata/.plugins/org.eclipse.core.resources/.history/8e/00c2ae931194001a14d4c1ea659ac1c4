@@ -1,0 +1,74 @@
+package com.bigdata.controller;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bigdata.command.BCommand;
+import com.bigdata.command.BListCommand;
+
+
+@WebServlet("*.do")
+public class BoardController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+  
+    public BoardController() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doGet");
+		actionDo(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doPost");
+		actionDo(request, response);
+	}
+
+	private void actionDo(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("actionDo");
+		
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		String uri = request.getRequestURI();
+		String contextPath = request.getContextPath();
+		String com = uri.substring(contextPath.length());
+		String viewPage = null;
+		BCommand command = null;
+		
+		if(com.equals("/mvcboard/list.do")) {
+			command = new BListCommand();
+			command.execute(request, response);
+			viewPage = "/mvcboard/list.jsp";
+		} else if(com.equals("/mvcboard/view.do")) {
+			command = new BListCommand();
+			command.execute(request, response);
+			viewPage = "/mvcboard/view.jsp";
+		}
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+		if(viewPage != null) {
+			try {
+				dispatcher.forward(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+}

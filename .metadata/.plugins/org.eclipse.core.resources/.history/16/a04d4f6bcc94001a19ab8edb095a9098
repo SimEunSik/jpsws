@@ -1,0 +1,33 @@
+<%@page import="com.bigdata.dao.BoardDao"%>
+<%@page import="com.bigdata.dto.BoardDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+// updateOk.jsp
+// 넘어온 데이터 받기 => dao 보내기
+request.setCharacterEncoding("UTF-8");
+int ri = (int)request.getAttribute("ri");
+	
+	// 페이지 이동
+	if(ri == 1){
+%>
+<script>
+	alert('글 수정 성공');
+	location.href='<%=request.getContextPath()%>/board/view.jsp?idx=<%=idx%>';
+</script>
+<%		
+	}else{
+%>
+<script>
+	alert('글 수정 실패');
+	history.back();
+</script>
+<%		
+	}
+}else{
+%>
+<script>
+	alert('비밀번호가 틀립니다');
+	history.back();
+</script>
+<%}%>

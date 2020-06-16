@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/index.jsp</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+          <a class="logo" href="/storyboard/html/index0.jsp">
+            <img src="./img/dog01.png" height="36px">
+          </a>
+          <nav>
+            <ul class="nav-items">
+              <li><a href="/WebContent/html/login/login.jsp">Login</a></li>|
+              <li><a href="/WebContent/html/join/join.jsp">회원가입</a></li>
+            </ul>
+          </nav>
+        </header>
+      </div>
+    <div id="content" class="container">
+        <table class="table table-striped">
+        <tr>
+            <td>번 호</td>
+            <td>제 목</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>조 회</td>
+        </tr>
+        <%for(int i=10;i>0;i--) {%>
+        <tr>
+            <td><%=i %></td>
+            <td><a href="/storyboard/html/board/view.jsp">게시판 글입니다 <%=i %></a></td>
+            <td>식이</td>
+            <td>2015/11/23</td>
+            <td>12</td>
+        </tr>
+        <%} %>
+    </table>
+    <a href="/WebContent/html/board/write.jsp"><input type="button" id="wbtn" 
+      class="btn btn-success" value="글쓰기"></a>
+
+    <div class="text-center">
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <%for(int j=1;j<10;j++) { %>
+        <li class="page-item"><a class="page-link" href="#"><%=j%></a></li>
+        <%} %>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </div>
+  </div>
+    <footer>
+        <p>이용약관  |  개인정보취급방침</p>
+        <p>서울특별시 구로구 디지털로 306 (구로동, 대륭포스트타워 2차 212호,218호,219호)  |  t. 02-2082-1688  |  F. 031-000-0000</p>
+        <p>Copyright ⓒ THEJOEUN ACADEMY Corp.. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

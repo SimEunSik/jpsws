@@ -1,0 +1,85 @@
+const uname = document.querySelector('.bname');
+const title = document.querySelector('.btitle');
+const con = document.querySelector('.bcontent');
+const upw = document.querySelector('.bpw');
+const lbtn = document.querySelector('.btn');
+const del = document.querySelector('.delpw');
+
+const reply = document.reply;
+const del = document.del;
+
+function updatef() {
+	let update = document.update;
+    if(uname.value.length === 0){
+        alert('작성자는 필수 입력 입니다.')
+        uname.focus();
+    } else if(title.value.length === 0){
+        alert('제목은 필수 입력 입니다.')
+        title.focus();
+    } else if (con.value.length === 0) {
+        alert('내용은 필수 입력 입니다.')
+        con.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        upw.focus();
+    } else {
+    	update.submit();
+    }
+};
+
+function writef() {
+	let write = document.write;
+    if(uname.value.length === 0){
+        alert('작성자는 필수 입력 입니다.')
+        uname.focus();
+    } else if(title.value.length === 0){
+        alert('제목은 필수 입력 입니다.')
+        title.focus();
+    } else if (con.value.length === 0) {
+        alert('내용은 필수 입력 입니다.')
+        con.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        upw.focus();
+    } else {
+    	write.submit();
+    }
+};
+
+function replyf() {
+	let reply = document.reply;
+    if(uname.value.length === 0){
+        alert('작성자는 필수 입력 입니다.')
+        uname.focus();
+    } else if(title.value.length === 0){
+        alert('제목은 필수 입력 입니다.')
+        title.focus();
+    } else if (con.value.length === 0) {
+        alert('내용은 필수 입력 입니다.')
+        con.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        upw.focus();
+    } else {
+        //location.href="/bigdata/board/replyOK.jsp"
+    	reply.submit();
+    }
+};
+function deletef() {
+    if(del.value.length === 0){
+        alert('비밀번호는 필수 입력 입니다.')
+        del.focus();
+        return;
+    } 
+    	del.submit();
+    
+};
+
+function resetf() {
+    document.querySelector('.bname').value = "";
+    document.querySelector('.bemail').value = "";
+    document.querySelector('.bhomepage').value = "";
+    document.querySelector('.btitle').value = "";
+    document.querySelector('.bcontent').value = "";
+    document.querySelector('.bpw').value = "";
+};

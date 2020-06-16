@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- redirect.jsp -->
+<%
+	String result = request.getParameter("data");
+	int num = Integer.parseInt(result);
+	
+	if(num%2 == 0){
+		response.sendRedirect("send02.jsp?data=" + data);
+	} else{
+		response.sendRedirect("send03.jsp?data=" + data);
+	}
+%>
+
+<form action="send03.jsp" method="post">
+<input type="text" name="data" value="<%=num%>" readonly="readonly">
+<input type="submit" name="보내기" value="보내기">
+</form>

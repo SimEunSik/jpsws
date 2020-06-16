@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<br>
+<h3>
+	<p class="text-info">글 읽기</p>
+</h3>
+<table class="table table-striped">
+	<tr>
+		<td>작성자</td>
+		<td>식이</td>
+		<td>작성일</td>
+		<td>2015/11/23</td>
+	</tr>
+	<tr>
+		<td>E-mail</td>
+		<td>essim92@naver.com</td>
+		<td>홈페이지</td>
+		<td><a href="/bigdata/index.jsp">http://esik2.com</a></td>
+	</tr>
+	<tr>
+		<td>제 목</td>
+		<td colspan="3">게시판 글입니다</td>
+	</tr>
+	<tr>
+		<td colspan="4">가나다라마바사</td>
+	</tr>
+	<tr>
+		<td colspan="4">조회수 :</td>
+	</tr>
+</table>
+<div class="brap">
+	<a href="list.html"><input type="button"
+		class="btn btn-success" value="목록"></a> <a href="update.html"><input
+		type="button" class="btn btn-primary" value="수정"></a> <a
+		href="respect.html"><input type="button"
+		class="btn btn-warning" value="답변"></a> <a href="delete.html"><input
+		type="button" class="btn btn-danger" value="삭제"></a>
+</div>

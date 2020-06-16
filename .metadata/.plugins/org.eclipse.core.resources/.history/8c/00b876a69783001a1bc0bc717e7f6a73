@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/WebContent/post.html</title>
+</head>
+<body>
+<form action="lifeCycle" method="post">
+	<input type="text" name="id" value="aaaa">
+	<input type="text" name="pw" value="1234">
+	<input type="submit" value="전송">
+</form>
+<hr>
+<a href="lifeCycle?id=aaaa&pw=1234">Get 방식</a>
+</body>
+</html>

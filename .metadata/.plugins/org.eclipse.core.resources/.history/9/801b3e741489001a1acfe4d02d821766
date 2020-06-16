@@ -1,0 +1,26 @@
+<%@page import="com.javalex.ex.MemberInfoDto"%>
+<%@page import="com.javalex.ex.MemberInfoDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MemberInfoDaoselect.jsp</title>
+</head>
+<body>
+<table border="1">
+<tr><th>id</th><th>pw</th><th>name</th><th>email</th><th>address</th><th>regdate</th></tr>
+<%
+MemberInfoDao dao = MemberInfoDao.getInstance(); // driver
+ArrayList<MemberInfoDto> dtos = dao.memberInfoSelect(10);
+
+for(MemberInfoDto member : dtos) { %>
+<tr><td><%=member.getId() %></td><td><%=member.getPw() %></td><td><%=member.getName() %></td><td><%=member.getEmail() %></td><td><%=member.getAddress() %></td><td><%=member.getRegdate() %></td></tr>
+<%}%>
+		
+		
+</table>
+</body>
+</html>

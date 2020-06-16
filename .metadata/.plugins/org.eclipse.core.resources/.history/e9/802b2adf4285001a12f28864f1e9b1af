@@ -1,0 +1,37 @@
+const lbtn = document.querySelector('.btn');
+const uid = document.querySelector('.uid');
+const upw = document.querySelector('.upw');
+const repw = document.querySelector('.repw');
+const uname = document.querySelector('.uname');
+const unic = document.querySelector('.unic');
+const umail = document.querySelector('.umail');
+
+function join_check() {
+    if(uid.value.length === 0){
+        alert('아이디는 필수 입력 입니다.')
+        input.focus();
+    } else if(uid.value.length < 3){
+        alert('아이디는 최소 3자 이상입니다.')
+        input.focus();
+    } else if (upw.value.length === 0) {
+        alert('비밀번호는 필수 입력 입니다.')
+        input.focus();
+    } else if (repw.value.length === 0) {
+        alert('비밀번호확인은 필수 입력 입니다.')
+        input.focus();
+    } else if (upw.value !== repw.value) {
+        alert('비밀번호와 비밀번호확인 값은 같아야 합니다.')
+        input.focus();
+    } else if(uname.value.length === 0) {
+        alert('이름은 필수 입력 입니다.')
+        input.focus();
+    } else if(unic.value.length === 0) {
+        alert('닉네임은 필수 입력 입니다.')
+        input.focus();
+    } else if(umail.value.length === 0) {
+        alert('E-mail은 필수 입력 입니다.')
+        input.focus();
+    } else {
+        location.href="/bigdata/login/login.jsp"
+    }
+};

@@ -1,0 +1,16 @@
+package com.javalex.ex;
+
+public class MemberInfoDto {
+	private String id;
+	private String pw;
+	private String name;
+	private String nicname;
+	private String email;
+	private String regdate;
+	
+	public MemberInfoDto() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+}

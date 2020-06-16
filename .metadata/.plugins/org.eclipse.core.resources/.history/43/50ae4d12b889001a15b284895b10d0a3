@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<p>작성자의 비밀번호를 입력해 주세요.</p>
+<form action="/bigdata/board/delete_form.jsp" method="post"
+	id="delete_form" name="delete_form">
+	<input type="password" class="delpw" name="password"> <br>
+	<br>
+	<button type="button" onClick=deletef() class="btn btn-primary">삭제완료</button>
+	<button type="button" onClick="history.go(-1)" class="btn btn-danger">뒤	로</button>
+</form>

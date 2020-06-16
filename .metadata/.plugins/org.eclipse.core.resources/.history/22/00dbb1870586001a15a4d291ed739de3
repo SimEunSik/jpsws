@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<fieldset id="fieldset">
+	<legend>
+		<span class="text-info">로 그 인</span>
+	</legend>
+	<form action="<%=app_path%>/index.jsp" method="post" id="login_form">
+	<input type="text" class="uid" name="username" placeholder="아이디(필수)"><br>
+	<br> <input type="password" class="upw" name="password"
+		placeholder="비밀번호(필수)"><br> <br>
+	</form>
+	<div class="btns">
+		<div>
+			<input type="submit" class="btn btn-success" value="로 그 인">
+		</div>
+		<div class="jo">
+			<a href="<%=join_path%>join.jsp"><input type="button" id="lbtn2"
+				class="btn btn-primary" value="회원가입"></a>
+		</div>
+	</div>
+</fieldset>

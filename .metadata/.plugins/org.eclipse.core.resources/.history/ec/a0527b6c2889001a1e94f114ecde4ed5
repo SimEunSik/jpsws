@@ -1,0 +1,158 @@
+package com.javalex.ex;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class MemberInfoDao {
+	
+	private static MemberInfoDao instance = new MemberInfoDao();
+	private static String memberInfoSelect = "select * from memberinfo order by regdate desc";
+	private static String confirmId = "select count(id) as cnt from memberinfo where id=?";
+	private static String memberInfoInsert = "insert into memberInfo(id,pw,name,email,address) values(?,?,?,?,?)"; 
+	private static String userCheck = "select pw from memberInfo where id=?"; 
+	
+	private DataSource dsSource;
+	
+	private MemberInfoDao() {
+		
+	}
+	
+	public static MemberInfoDao getInstance() {
+		return instance;
+	}
+	
+	private Connection getConnection() {
+		Connection conn = null;
+		conn = JDBCUtil.getConnection();
+		return conn;	
+	}
+	
+	public int confirmId(String id) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1. conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(confirmId);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ri = rs.getInt("cnt");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}		
+		
+		return ri;
+		
+	}
+	
+	public int memberInfoInsert(MemberInfoDto dto) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 1. conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(memberInfoInsert);
+			pstmt.setString(1, dto.getId());
+			pstmt.setString(2, dto.getPw());
+			pstmt.setString(3, dto.getName());
+			pstmt.setString(4, dto.getEmail());
+			pstmt.setString(5, dto.getAddress());
+			ri = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt, conn);
+		}		
+		
+		return ri;
+		
+	}	
+	
+	public ArrayList<MemberInfoDto> memberInfoSelect() {
+		ArrayList<MemberInfoDto> dtos = new ArrayList<MemberInfoDto>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1. conn
+			conn = getConnection();
+			pstmt = conn.prepareStatement(memberInfoInsert);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+			String id = rs.getString("id");
+			String pw = rs.getString("pw");
+			String name = rs.getString("name");
+			String email = rs.getString("email");
+			String address = rs.getString("address");
+			String regdate = rs.getString("regdate");
+			}
+			
+			MemberInfoDto member = new MemberInfoDto(id, pw, name, email, address, regdate);
+			dtos.add(member);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}		
+		
+		return dtos;
+		
+	}	
+	
+	public int userCheck(String id, String pw) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 1. conn
+			conn = getConnection();
+			// 2. query
+			pstmt = conn.prepareStatement(userCheck);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ri = rs.getInt("cnt");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}		
+		
+		return ri;
+		
+	}
+	
+	
+}
+

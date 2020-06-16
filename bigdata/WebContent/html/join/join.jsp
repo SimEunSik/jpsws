@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/WebContent/html/join/join.jsp</title>
+    <link rel="stylesheet" href="../../css/join.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+          <a class="logo" href="../index0.jsp">
+            <img src="../../img/dog01.png" height="36px">
+          </a>
+          <nav>
+            <ul class="nav-items">
+              <li><a href="../login/login.jsp">Login</a></li>|
+              <li><a href="join.jsp">회원가입</a></li>
+            </ul>
+          </nav>
+        </header>
+      </div>
+      <div class="container">
+          <h2>회원 가입</h2><br>
+          <div>
+          <h4>사이트 이용정보 입력</h4>
+          <input type="text" class="uid" name="username" placeholder="아이디">
+          <br>
+          <p id="won">영문자, 숫자, _만 입력 가능. 최소 3자이상 입력하세요.</p>
+          <input type="password" class="upw" name="password" placeholder="비밀번호"><p></p>
+          <input type="password" class="repw" name="password" placeholder="비밀번호확인">
+          </div>
+          <br>
+          <div>
+          <h4>개인정보 입력</h4>
+          <input type="text" class="uname" name="username" placeholder="이름">
+          <p id="won">공백없이 한글, 영문, 숫자만 입력 가능 (한글2자, 영문4자 이상)</p>
+          <p id="won">닉네임을 바꾸시면 앞으로 60일 이내에는 변경 할 수 없습니다.</p>
+          <input type="text" class="unic" name="username" placeholder="닉네임"><p></p>
+          <input type="text" class="umail" name="username" placeholder="E-mail">
+          </div><br>
+          <div class="btn-box">
+            <div>
+            <input type="button" class="btn btn-success" value="회원가입">
+            </div>
+            <div>
+            <button class="btn btn-danger"><a href="../login/login.jsp">취 소</a></button>
+            </div>
+          </div>
+      </div> 
+      <footer>
+        <p>이용약관  |  개인정보취급방침</p>
+        <p>서울특별시 구로구 디지털로 306 (구로동, 대륭포스트타워 2차 212호,218호,219호)  |  t. 02-2082-1688  |  F. 031-000-0000</p>
+        <p>Copyright ⓒ THEJOEUN ACADEMY Corp.. All Rights Reserved.</p>
+        </footer>
+        <script src="../../js/join.js"></script>
+</body>
+</html>

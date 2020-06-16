@@ -1,0 +1,55 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+Connection conn = null;
+Statement stmt = null;
+ResultSet rs = null;
+String driver = "com.mysql.jdbc.Driver";
+String url = "jdbc:mysql://localhost:3306/bigdata?useSSL=false&serverTimezone=UTC";
+String uid = "root";
+String upw = "rootpass";
+String sql = "select id, pw, name, email, address, regdate from member";
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memberData.jsp</title>
+</head>
+<body>
+<%
+try{
+	Class.forName(driver);
+	conn = DriverManager.getConnection(url, uid, upw);
+	stmt = conn.createStatement();
+	rs = stmt.executeQuery(sql);
+	while(rs.next()){
+		String id = rs.getString("id");
+		String pw = rs.getString("pw");
+		String name = rs.getString("name");
+		String email = rs.getString("email");
+		String address = rs.getString("address");
+		String regdate = rs.getString("regdate");
+%> 
+<h2>
+<a href="join.jsp">회원가입</a> <br>
+id : <%=id %> / pw : <%=pw %> / name : <%=name %> / email : <%=email %> / address : <%=address %> / regdate : <%=regdate %><br>
+</h2>
+<%
+	}
+}catch(Exception e){
+	out.println("ERR");
+}finally{
+	if(rs != null) rs.close();
+	if(stmt != null) stmt.close();
+	if(conn != null) conn.close();
+}
+
+%>
+</body>
+</html>
